@@ -62,9 +62,13 @@ class SocialGraph:
             friendship = possible_friendships[i]
             self.add_friendship(friendship[0], friendship[1])
         '''
-        for i in range(0, (num_users * avg_friendships) // 2):
+        num_connections = 0
+        total_connections = (num_users * avg_friendships) // 2
+        while num_connections < total_connections:
             new_friends = random.sample(list(self.users), 2)
-            self.add_friendship(new_friends[0], new_friends[1])
+            if new_friends[0] not in self.friendships[new_friends[1]] and new_friends[1] not in self.friendships[new_friends[0]]:
+                self.add_friendship(new_friends[0], new_friends[1])
+                num_connections += 1
 
     def get_all_social_paths(self, user_id):
         """
